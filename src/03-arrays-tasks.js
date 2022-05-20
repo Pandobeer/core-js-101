@@ -227,13 +227,12 @@ function toArrayOfSquares(arr) {
  *   [ 0, 0, 0, 0, 0]         => [ 0, 0, 0, 0, 0]
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
-function getMovingSum(/* arr */) {
-  // const cb = function (r, c, i) {
-  //   r.push((r[i - 1] || 0) + c);
-  //   return r;
-  // };
-  // return arr.reduce(cb, []);
-  throw new Error('Not implemented');
+function getMovingSum(arr) {
+  const cb = function getSum(r, c, i) {
+    r.push((r[i - 1] || 0) + c);
+    return r;
+  };
+  return arr.reduce(cb, []);
 }
 
 /**
@@ -321,7 +320,6 @@ function getPositivesCount(arr) {
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
 function sortDigitNamesByNumericOrder(arr) {
-  // return arr.sort((a, b) => parseInt(a, 10) - parseInt(b, 10));
   const nums = [
     'zero',
     'one',
@@ -429,8 +427,21 @@ function toStringList(arr) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  *    ]
  */
-function sortCitiesArray(/* arr */) {
-  throw new Error('Not implemented');
+function sortCitiesArray(arr) {
+  return arr.sort((a, b) => {
+    if (a.country > b.country) {
+      return 1;
+    }
+
+    if (a.country === b.country) {
+      if (a.city > b.city) {
+        return 1;
+      }
+      return -1;
+    }
+
+    return -1;
+  });
 }
 
 /**
@@ -552,8 +563,8 @@ function selectMany(arr, childrenSelector) {
  *   ['one','two','three'], [2]       => 'three'  (arr[2])
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
-function getElementByIndexes(/* arr, indexes */) {
-  throw new Error('Not implemented');
+function getElementByIndexes(arr, indexes) {
+  return indexes.reduce((prev, curr) => prev[curr], arr);
 }
 
 /**
@@ -574,16 +585,13 @@ function getElementByIndexes(/* arr, indexes */) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8 ]   =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]
  *
  */
-function swapHeadAndTail(/* arr */) {
-  // const head = arr.slice(0, Math.round((arr.length - 1) / 2));
-  // const tail = arr.slice(Math.round(arr.length / 2), arr.length);
-  // const center = arr.slice(
-  //   Math.round((arr.length - 1) / 2),
-  //   Math.round(arr.length / 2)
-  // );
-
-  // return [].concat(tail, center, head);
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  const head = arr.slice(0, Math.round((arr.length - 1) / 2));
+  const tail = arr.slice(Math.round(arr.length / 2), arr.length);
+  const posCenterStart = Math.round((arr.length - 1) / 2);
+  const posCenterEnd = Math.round(arr.length / 2);
+  const center = arr.slice(posCenterStart, posCenterEnd);
+  return [].concat(tail, center, head);
 }
 
 module.exports = {
