@@ -203,9 +203,9 @@ class Selector {
   }
 
   checkOrder(selector) {
-    const selectorIndex = Object.keys(this.selectors).indexOf(selector);
+    const selectorInd = Object.keys(this.selectors).indexOf(selector);
     const len = Object.values(this.selectors)
-      .filter((elem, index) => elem.length > 0 && index > selectorIndex).length;
+      .filter((elem, index) => elem.length > 0 && index > selectorInd).length;
     return len !== 0;
   }
 
@@ -240,13 +240,13 @@ const cssSelectorBuilder = {
   },
 
   combine(selector1, combinator, selector2) {
-    this.result = `${selector1.stringify()} ${combinator} ${selector2.stringify()}`;
+    this.cssResult = `${selector1.stringify()} ${combinator} ${selector2.stringify()}`;
 
     return this;
   },
 
   stringify() {
-    return this.result;
+    return this.cssResult;
   },
 };
 
