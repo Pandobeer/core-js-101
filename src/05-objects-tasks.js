@@ -240,13 +240,13 @@ const cssSelectorBuilder = {
   },
 
   combine(selector1, combinator, selector2) {
-    this.cssResult = `${selector1.stringify()} ${combinator} ${selector2.stringify()}`;
+    this.result = `${selector1.stringify()} ${combinator} ${selector2.stringify()}`;
 
     return this;
   },
 
   stringify() {
-    return this.cssResult;
+    return this.result;
   },
 };
 
