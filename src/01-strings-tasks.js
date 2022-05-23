@@ -198,8 +198,53 @@ function extractEmails(str) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  let result = '';
+
+  for (let rowIndex = 1; rowIndex <= height; rowIndex += 1) {
+    for (let columnIndex = 1; columnIndex <= width; columnIndex += 1) {
+      // first row
+      if (rowIndex === 1) {
+        if (columnIndex === 1) {
+          result += '┌';
+        }
+
+        if (columnIndex === width) {
+          result += '┐';
+        }
+
+        if (columnIndex > 1 && columnIndex < width) {
+          result += '─';
+        }
+      }
+
+      // middle rows
+      if (rowIndex > 1 && rowIndex < height) {
+        if (columnIndex === 1 || columnIndex === width) {
+          result += '│';
+        } else {
+          result += ' ';
+        }
+      }
+
+      // last row
+      if (rowIndex === height) {
+        if (columnIndex === 1) {
+          result += '└';
+        }
+
+        if (columnIndex === width) {
+          result += '┘';
+        }
+
+        if (columnIndex > 1 && columnIndex < width) {
+          result += '─';
+        }
+      }
+    }
+    result += '\n';
+  }
+  return result;
 }
 
 /**
