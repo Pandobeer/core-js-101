@@ -135,8 +135,8 @@ function isTriangle(a, b, c) {
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
  *
  */
-function doRectanglesOverlap(/* rect1, rect2 */) {
-  throw new Error('Not implemented');
+function doRectanglesOverlap(rect1, rect2) {
+  return !((rect1.top + rect1.height) < rect2.top || (rect1.left + rect1.width) < rect2.left);
 }
 
 
@@ -335,8 +335,25 @@ function getDigitalRoot(num) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  const bracketMap = {
+    '(': ')',
+    '[': ']',
+    '{': '}',
+    '<': '>',
+    '\'': '\'',
+  };
+
+  const bracketStack = [];
+  for (let i = 0; i < str.length; i += 1) {
+    if (bracketMap[str[i]]) {
+      bracketStack.push(str[i]);
+    } else {
+      const poppedBracket = bracketStack.pop();
+      if (bracketMap[poppedBracket] !== str[i]) return false;
+    }
+  }
+  return !(bracketStack.length > 0);
 }
 
 
@@ -414,8 +431,20 @@ function getCommonDirectoryPath(pathes) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
-  throw new Error('Not implemented');
+function getMatrixProduct(m1, m2) {
+  const result = [];
+  for (let i = 0; i < m1.length; i += 1) {
+    const row = [];
+    for (let j = 0; j < m2[0].length; j += 1) {
+      let d = 0;
+      for (let k = 0; k < m2.length; k += 1) {
+        d += m1[i][k] * m2[k][j];
+      }
+      row.push(d);
+    }
+    result.push(row);
+  }
+  return result;
 }
 
 
@@ -449,8 +478,25 @@ function getMatrixProduct(/* m1, m2 */) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  for (let i = 0; i < position.length; i += 1) {
+    if ((position[i][0]) && position[i][0] === position[i][1]
+      && position[i][1] === position[i][2]) {
+      return position[i][0];
+    }
+
+    if ((position[0][i]) && position[0][i] === position[1][i]
+      && position[0][i] === position[2][i]) {
+      return position[0][i];
+    }
+  }
+
+  if ((position[1][1]) && ((position[0][0] === position[1][1] && position[1][1] === position[2][2])
+    || (position[0][2] === position[1][1] && position[1][1] === position[2][0]))) {
+    return position[1][1];
+  }
+
+  return undefined;
 }
 
 
